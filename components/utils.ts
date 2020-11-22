@@ -1,0 +1,3 @@
+export const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const ALPHABET_LETTERS_COUNT = ALPHABET.length;
+export const STARTING_CODE_OF_LATIN_LETTERS = 'A'.charCodeAt(0);
