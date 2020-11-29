@@ -10,11 +10,7 @@ export class Machine {
 
     constructor(p: {
         reflectorType: Reflector['type'],
-        rotorSettings: [
-            RotorSetting,
-            RotorSetting,
-            RotorSetting
-        ],
+        rotorSettings: RotorSetting[],
         plugboardPairs?: string,
         debug?: boolean,
     }) {
@@ -33,17 +29,17 @@ export class Machine {
         this.log('========= Plugboard ==========');
         this.log(`Plugs | ${plugboardPairs}`);
         this.log('========= 1st Rotor ==========');
-        this.log(`Type | ${rotorSettings[0].type}`);
-        this.log(`Ring setting | ${rotorSettings[0].ringSetting}`);
-        this.log(`Start position | ${rotorSettings[0].position}`);
+        this.log(`Type | ${this.rotors[0].type}`);
+        this.log(`Ring setting | ${this.rotors[0].ringSetting}`);
+        this.log(`Start position | ${this.rotors[0].position}`);
         this.log('========= 2nd Rotor ==========');
-        this.log(`Type | ${rotorSettings[1].type}`);
-        this.log(`Ring setting | ${rotorSettings[1].ringSetting}`);
-        this.log(`Start position | ${rotorSettings[1].position}`);
+        this.log(`Type | ${this.rotors[1].type}`);
+        this.log(`Ring setting | ${this.rotors[1].ringSetting}`);
+        this.log(`Start position | ${this.rotors[1].position}`);
         this.log('========= 3rd Rotor ==========');
-        this.log(`Type | ${rotorSettings[2].type}`);
-        this.log(`Ring setting | ${rotorSettings[2].ringSetting}`);
-        this.log(`Start position | ${rotorSettings[2].position}`);
+        this.log(`Type | ${this.rotors[2].type}`);
+        this.log(`Ring setting | ${this.rotors[2].ringSetting}`);
+        this.log(`Start position | ${this.rotors[2].position}`);
         this.log('========= Reflector ==========');
         this.log(`Type | ${reflectorType}`);
     }
@@ -61,8 +57,8 @@ export class Machine {
         this.rotors[0].step();
 
         this.log('Machine encoding');
-
         this.log('letter: ' + letter);
+        this.log(`Rotors Position: ${this.rotors[2].position}${this.rotors[1].position}${this.rotors[0].position}`);
 
         let plugboardDirect = undefined;
         if (this.plugboard) {
@@ -75,7 +71,7 @@ export class Machine {
             : this.encodeWithRotors(letter);
 
         const reflectorInverse = this.reflector.encrypt(rotorsDirect);
-        this.log('reflectorInverse: ' + rotorsDirect + ' -> ' + reflectorInverse);
+        this.log(`reflectorInverse ${this.reflector.type}: ${rotorsDirect} -> ${reflectorInverse}`);
 
         const rotorsInverse = this.encodeInverseWithRotors(reflectorInverse);
 
@@ -90,9 +86,9 @@ export class Machine {
 
     private encodeWithRotors(letter: string) {
         let output = '';
-        for (var i = 0; i < this.rotors.length; i++) {
+        for (let i = 0; i < this.rotors.length; i++) {
             output = this.rotors[i].encrypt(letter);
-            this.log('rotor ' + i + ' direct: ' + letter + ' -> ' + output);
+            this.log(`rotor ${this.rotors[i].type} direct: ${letter} -> ${output}`);
 
             letter = output;
         }
@@ -104,7 +100,7 @@ export class Machine {
         let output = '';
         for (let i = this.rotors.length - 1; i >= 0; i--) {
             output = this.rotors[i].encrypt(letter, true);
-            this.log('rotor ' + i + ' inverse: ' + letter + ' -> ' + output);
+            this.log(`rotor ${this.rotors[i].type} inverse: ${letter} -> ${output}`);
 
             letter = output;
         }

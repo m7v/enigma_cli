@@ -10,8 +10,9 @@ export type RotorSetting = {
 export class Rotor implements RotorInterface {
     type: RotorInterface['type'];
     innerRingPosition: number;
-
     turnoverCountdown: number;
+    ringSetting: number;
+    position: string;
 
     wires: {[k: string]: string};
     inverseWires: {[k: string]: string};
@@ -21,6 +22,8 @@ export class Rotor implements RotorInterface {
         this.turnoverCountdown = 0;
         this.wires = {};
         this.inverseWires = {};
+        this.position = position;
+        this.ringSetting = ringSetting;
 
         this.type = type;
         this.innerRingPosition = 0;
@@ -37,15 +40,15 @@ export class Rotor implements RotorInterface {
         if (inverseStep) {
             let offsetLetterCode = (letterCode + this.innerRingPosition) % ALPHABET_LETTERS_COUNT;
             if (offsetLetterCode < 0) {
-                offsetLetterCode += 26;
+                offsetLetterCode += ALPHABET_LETTERS_COUNT;
             }
             return this.inverseWires[String.fromCharCode(STARTING_CODE_OF_LATIN_LETTERS + offsetLetterCode)];
         } else {
-            const outputLetterCode = this.wires[letter].charCodeAt(0) - 'A'.charCodeAt(0);
+            const outputLetterCode = this.wires[letter].charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
 
             let offsetLetterCode = (outputLetterCode - this.innerRingPosition) % ALPHABET_LETTERS_COUNT;
             if (offsetLetterCode < 0) {
-                offsetLetterCode += 26
+                offsetLetterCode += ALPHABET_LETTERS_COUNT
             }
 
             return String.fromCharCode(STARTING_CODE_OF_LATIN_LETTERS + offsetLetterCode);
@@ -55,14 +58,16 @@ export class Rotor implements RotorInterface {
     public step() {
         this.stepWires();
         this.turnover();
-        this.innerRingPosition += 1;
+        this.innerRingPosition += 1
     }
 
     private setupWires() {
         const wiringTable = this.getWiresByRotorId(this.type);
-        for (let i = 0; i < ALPHABET.length; i++) {
-            this.wires[ALPHABET[i]] = wiringTable[i];
-            this.inverseWires[wiringTable[i]] = ALPHABET[i];
+        const wiringTableArray = wiringTable.split('');
+        const alphabetArray = ALPHABET.split('');
+        for (let i = 0; i < ALPHABET_LETTERS_COUNT; i++) {
+            this.wires[alphabetArray[i]] = wiringTableArray[i];
+            this.inverseWires[wiringTableArray[i]] = alphabetArray[i];
         }
     }
 
@@ -77,7 +82,10 @@ export class Rotor implements RotorInterface {
     private setInnerPosition(innerRingPosition: number) {
         // Позиции в машине устанавливаются с 1 до 26.
         const numberOfSteps = innerRingPosition - 1;
-        for (let i = 0; i < 26 - numberOfSteps; i++) {
+        if (!numberOfSteps) {
+            return;
+        }
+        for (let i = 0; i < ALPHABET_LETTERS_COUNT - numberOfSteps; i++) {
             this.stepWires();
             this.innerRingPosition += 1;
         }
@@ -94,13 +102,24 @@ export class Rotor implements RotorInterface {
     };
 
     private stepWires() {
-        for (let i = 0; i < ALPHABET.length; i++) {
+        let newWires: {[k: string]: string} = {};
+        for (let i = 0; i < ALPHABET_LETTERS_COUNT; i++) {
             const currentLetter = ALPHABET[i];
             const nextLetter = ALPHABET[(i + 1) % ALPHABET_LETTERS_COUNT];
-            this.wires[currentLetter] = this.wires[nextLetter];
 
+            newWires[currentLetter] = this.wires[nextLetter];
             this.inverseWires[this.wires[currentLetter]] = currentLetter;
         }
+        this.wires = newWires;
+
+        for (let i = 0; i < ALPHABET_LETTERS_COUNT; i++) {
+            let letter = ALPHABET[i];
+            let encodedLetter = this.wires[letter];
+            this.inverseWires[encodedLetter] = letter;
+        }
+
+        // Меняем позицию внутри ротора. Т.к. шаг = 1, мы всегда просто смещаем на 1 шаг.
+        this.position = String.fromCharCode(STARTING_CODE_OF_LATIN_LETTERS + ((this.position.charCodeAt(0) + 1 - STARTING_CODE_OF_LATIN_LETTERS) % ALPHABET_LETTERS_COUNT));
     }
 
     private setTurnoverLetter() {
