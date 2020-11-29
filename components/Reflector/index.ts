@@ -7,6 +7,7 @@ export class Reflector implements ReflectorInterface {
 
     constructor(p: { type: ReflectorInterface['type'] }) {
         this.type = p.type;
+        this.reflectionTable = {};
 
         this.setReflectionTable();
     }
@@ -19,7 +20,7 @@ export class Reflector implements ReflectorInterface {
         }
     };
 
-    public encrypt(letter) {
+    public encrypt(letter: string) {
         return this.reflectionTable[letter];
     };
 

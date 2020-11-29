@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0bf42a65-a4ff-43a9-9d09-b067134634ae" name="Default Changelist" comment="">
+    <list default="true" id="0bf42a65-a4ff-43a9-9d09-b067134634ae" name="Default Changelist" comment="Finished base classes.">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Machine/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/Machine/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Plugboard/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/Plugboard/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Reflector/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/Reflector/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Rotor/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/Rotor/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/components/Rotor" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/components/Machine" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -40,14 +47,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/Machine" />
+      <recent name="$PROJECT_DIR$/components/Rotor" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/components/Reflector" />
       <recent name="$PROJECT_DIR$/components/Rotor" />
       <recent name="$PROJECT_DIR$/components" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/components/Rotor" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -59,13 +67,53 @@
       <option name="presentableId" value="Default" />
       <updated>1606036486781</updated>
       <workItem from="1606036487911" duration="14703000" />
+      <workItem from="1606057350600" duration="25000" />
+      <workItem from="1606645231987" duration="3541000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1606057370221</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606057370222</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Finished base classes.">
+      <created>1606647689776</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606647689776</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/components/utils.js" />
+        <option value="$PROJECT_DIR$/components/Rotor/types.js" />
+        <option value="$PROJECT_DIR$/components/Rotor/index.js" />
+        <option value="$PROJECT_DIR$/components/Machine/index.js" />
+        <option value="$PROJECT_DIR$/components/Plugboard/index.js" />
+        <option value="$PROJECT_DIR$/components/Reflector/types.js" />
+        <option value="$PROJECT_DIR$/components/Reflector/index.js" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Finished base classes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished base classes." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="388" y="27" width="813" height="873" key="CommitChangelistDialog2" timestamp="1606648770763">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="388" y="27" width="813" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1606648770763" />
     <state x="583" y="220" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606051650833">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
@@ -78,5 +126,9 @@
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="464" y="208" key="run.anything.popup/0.27.1600.873@0.27.1600.873" timestamp="1606036565601" />
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1606648267972">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1606648267972" />
   </component>
 </project>

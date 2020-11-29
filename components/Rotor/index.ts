@@ -1,7 +1,13 @@
 import { RotorInterface } from './types';
 import { STARTING_CODE_OF_LATIN_LETTERS, ALPHABET_LETTERS_COUNT, ALPHABET } from '../utils';
 
-class Rotor implements RotorInterface {
+export type RotorSetting = {
+    type: RotorInterface['type'];
+    ringSetting?: number;
+    position?: string
+}
+
+export class Rotor implements RotorInterface {
     type: RotorInterface['type'];
     innerRingPosition: number;
 
@@ -10,8 +16,12 @@ class Rotor implements RotorInterface {
     wires: {[k: string]: string};
     inverseWires: {[k: string]: string};
 
-    constructor(p: { type: RotorInterface['type']; ringSetting?: number; position?: string }) {
+    constructor(p: RotorSetting) {
         const { type, position = 'A', ringSetting = 1 } = p;
+        this.turnoverCountdown = 0;
+        this.wires = {};
+        this.inverseWires = {};
+
         this.type = type;
         this.innerRingPosition = 0;
 
@@ -21,7 +31,7 @@ class Rotor implements RotorInterface {
         this.setInitialPosition(position.toUpperCase());
     }
 
-    public encrypt(letter: string, inverseStep: boolean) {
+    public encrypt(letter: string, inverseStep: boolean = false) {
         const letterCode = letter.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
 
         if (inverseStep) {
