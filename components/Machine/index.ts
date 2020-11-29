@@ -44,7 +44,25 @@ export class Machine {
         this.log(`Type | ${reflectorType}`);
     }
 
-    encrypt(letter: string) {
+    encryptMessage(text: string): string {
+        const encryptedText = text
+            .split('')
+            .filter((l) => l !== ' ')
+            .map((letter) => this.encryptLetter(letter))
+            .join('') as string;
+        const temp1 = encryptedText.match(/.{0,5}/g) || [];
+        const temp2 = temp1.map((l) => l.trim()).join(' ').match(/.{0,23}/g) || [];
+        return temp2.map((l) => l.trim()).join('\n');
+    }
+
+    encryptLetter(inpLetter: string): string {
+        const matchLetter = inpLetter
+            .toUpperCase()
+            .match(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/);
+        if (!matchLetter) {
+            return inpLetter;
+        }
+        const letter = matchLetter[0];
         // Double stepping anomaly
         // Rotors turns over the rotor on their right as well. This is not noticed
         // in rotor 0 because it always steps anyway.
@@ -75,13 +93,13 @@ export class Machine {
 
         const rotorsInverse = this.encodeInverseWithRotors(reflectorInverse);
 
-        let plugboardInverse = undefined;
         if (this.plugboard) {
-            plugboardInverse = this.plugboard.encode(rotorsInverse);
+            const plugboardInverse = this.plugboard.encode(rotorsInverse);
             this.log('plugboardInverse: ' + rotorsInverse + ' -> ' + plugboardInverse);
+            return plugboardInverse;
         }
 
-        return this.plugboard ? plugboardInverse : rotorsInverse;
+        return rotorsInverse;
     }
 
     private encodeWithRotors(letter: string) {

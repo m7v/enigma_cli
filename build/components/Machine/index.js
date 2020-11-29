@@ -34,7 +34,25 @@ var Machine = /** @class */ (function () {
         this.log('========= Reflector ==========');
         this.log("Type | " + reflectorType);
     }
-    Machine.prototype.encrypt = function (letter) {
+    Machine.prototype.encryptMessage = function (text) {
+        var _this = this;
+        var encryptedText = text
+            .split('')
+            .filter(function (l) { return l !== ' '; })
+            .map(function (letter) { return _this.encryptLetter(letter); })
+            .join('');
+        var temp1 = encryptedText.match(/.{0,5}/g) || [];
+        var temp2 = temp1.map(function (l) { return l.trim(); }).join(' ').match(/.{0,23}/g) || [];
+        return temp2.map(function (l) { return l.trim(); }).join('\n');
+    };
+    Machine.prototype.encryptLetter = function (inpLetter) {
+        var matchLetter = inpLetter
+            .toUpperCase()
+            .match(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/);
+        if (!matchLetter) {
+            return inpLetter;
+        }
+        var letter = matchLetter[0];
         // Double stepping anomaly
         // Rotors turns over the rotor on their right as well. This is not noticed
         // in rotor 0 because it always steps anyway.
@@ -58,12 +76,12 @@ var Machine = /** @class */ (function () {
         var reflectorInverse = this.reflector.encrypt(rotorsDirect);
         this.log("reflectorInverse " + this.reflector.type + ": " + rotorsDirect + " -> " + reflectorInverse);
         var rotorsInverse = this.encodeInverseWithRotors(reflectorInverse);
-        var plugboardInverse = undefined;
         if (this.plugboard) {
-            plugboardInverse = this.plugboard.encode(rotorsInverse);
+            var plugboardInverse = this.plugboard.encode(rotorsInverse);
             this.log('plugboardInverse: ' + rotorsInverse + ' -> ' + plugboardInverse);
+            return plugboardInverse;
         }
-        return this.plugboard ? plugboardInverse : rotorsInverse;
+        return rotorsInverse;
     };
     Machine.prototype.encodeWithRotors = function (letter) {
         var output = '';
