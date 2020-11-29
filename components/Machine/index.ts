@@ -73,6 +73,12 @@ export class Machine {
 
         // Update rotor position after encoding
         this.rotors[0].step();
+        if (this.rotors[0].turnoverCountdown === 26) {
+            this.rotors[1].step();
+            if (this.rotors[1].turnoverCountdown === 26) {
+                this.rotors[2].step();
+            }
+        }
 
         this.log('Machine encoding');
         this.log('letter: ' + letter);

@@ -62,6 +62,12 @@ var Machine = /** @class */ (function () {
         }
         // Update rotor position after encoding
         this.rotors[0].step();
+        if (this.rotors[0].turnoverCountdown === 26) {
+            this.rotors[1].step();
+            if (this.rotors[1].turnoverCountdown === 26) {
+                this.rotors[2].step();
+            }
+        }
         this.log('Machine encoding');
         this.log('letter: ' + letter);
         this.log("Rotors Position: " + this.rotors[2].position + this.rotors[1].position + this.rotors[0].position);

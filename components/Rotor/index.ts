@@ -22,10 +22,10 @@ export class Rotor implements RotorInterface {
         this.turnoverCountdown = 0;
         this.wires = {};
         this.inverseWires = {};
+        this.type = type;
         this.position = position;
         this.ringSetting = ringSetting;
 
-        this.type = type;
         this.innerRingPosition = 0;
 
         this.setupWires();
@@ -55,10 +55,16 @@ export class Rotor implements RotorInterface {
         }
     }
 
-    public step() {
+    public step(initStep: boolean = false) {
         this.stepWires();
         this.turnover();
         this.innerRingPosition += 1
+
+        // Меняем позицию внутри ротора. Т.к. шаг = 1, мы всегда просто смещаем на 1 шаг.
+        const baseLetter = initStep
+            ? STARTING_CODE_OF_LATIN_LETTERS
+            : this.position.charCodeAt(0);
+        this.position = String.fromCharCode(STARTING_CODE_OF_LATIN_LETTERS + ((baseLetter + 1 - STARTING_CODE_OF_LATIN_LETTERS) % ALPHABET_LETTERS_COUNT));
     }
 
     private setupWires() {
@@ -75,7 +81,9 @@ export class Rotor implements RotorInterface {
         const letterCode = initialPosition.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
 
         for (let i = 0; i < letterCode; i++) {
-            this.step();
+            // На первом шаге у нас всегда A,
+            // а дальше мы вращаем ротор на то кол-во, которое указали при инициализации.
+            this.step(i === 0);
         }
     }
 
@@ -117,9 +125,6 @@ export class Rotor implements RotorInterface {
             let encodedLetter = this.wires[letter];
             this.inverseWires[encodedLetter] = letter;
         }
-
-        // Меняем позицию внутри ротора. Т.к. шаг = 1, мы всегда просто смещаем на 1 шаг.
-        this.position = String.fromCharCode(STARTING_CODE_OF_LATIN_LETTERS + ((this.position.charCodeAt(0) + 1 - STARTING_CODE_OF_LATIN_LETTERS) % ALPHABET_LETTERS_COUNT));
     }
 
     private setTurnoverLetter() {
@@ -144,15 +149,15 @@ export class Rotor implements RotorInterface {
     private getTurnoverNotchPositions = () => {
         switch (this.type) {
             case 'I':
-                return 'R'.charCodeAt(0);
+                return 'R'.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
             case 'II':
-                return 'F'.charCodeAt(0);
+                return 'F'.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
             case 'III':
-                return 'W'.charCodeAt(0);
+                return 'W'.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
             case 'IV':
-                return 'K'.charCodeAt(0);
+                return 'K'.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
             case 'V':
-                return 'A'.charCodeAt(0);
+                return 'A'.charCodeAt(0) - STARTING_CODE_OF_LATIN_LETTERS;
         }
     }
 }
