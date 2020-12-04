@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Machine_1 = require("./components/Machine");
 var machineSetting = {
-    reflectorType: 'B',
+    reflectorType: "B",
     rotorSettings: [
-        { type: "III", position: 'V' },
-        { type: "II", position: 'E' },
-        { type: "I" },
+        { type: "III", positon: "A", ringSetting: 1 },
+        { type: "II", position: "A", ringSetting: 1 },
+        { type: "I", position: "A", ringSetting: 1 },
     ],
     debug: true,
 };
 var enigma = new Machine_1.Machine(machineSetting);
-var encrypted1 = enigma.encryptMessage("A");
-console.log('encrypted', encrypted1);
+var encrypted1 = enigma.encryptMessage("AAAAA");
+console.log("encrypted", encrypted1);
