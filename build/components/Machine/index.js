@@ -9,41 +9,44 @@ var Machine = /** @class */ (function () {
         var reflectorType = p.reflectorType, rotorSettings = p.rotorSettings, plugboardPairs = p.plugboardPairs, _a = p.debug, debug = _a === void 0 ? false : _a;
         this.debug = debug;
         if (plugboardPairs) {
-            this.plugboard = new Plugboard_1.Plugboard({ plugboardPairs: plugboardPairs });
+            this.plugboard = new Plugboard_1.Plugboard(plugboardPairs);
         }
         this.rotors = [
             new Rotor_1.Rotor(rotorSettings[0]),
             new Rotor_1.Rotor(rotorSettings[1]),
             new Rotor_1.Rotor(rotorSettings[2]),
         ];
-        this.reflector = new Reflector_1.Reflector({ type: reflectorType });
-        this.log('========= Plugboard ==========');
+        this.reflector = new Reflector_1.Reflector(reflectorType);
+        this.log("========= Plugboard ==========");
         this.log("Plugs | " + plugboardPairs);
-        this.log('========= 1st Rotor ==========');
+        this.log("========= 1st Rotor ==========");
         this.log("Type | " + this.rotors[0].type);
         this.log("Ring setting | " + this.rotors[0].ringSetting);
         this.log("Start position | " + this.rotors[0].position);
-        this.log('========= 2nd Rotor ==========');
+        this.log("========= 2nd Rotor ==========");
         this.log("Type | " + this.rotors[1].type);
         this.log("Ring setting | " + this.rotors[1].ringSetting);
         this.log("Start position | " + this.rotors[1].position);
-        this.log('========= 3rd Rotor ==========');
+        this.log("========= 3rd Rotor ==========");
         this.log("Type | " + this.rotors[2].type);
         this.log("Ring setting | " + this.rotors[2].ringSetting);
         this.log("Start position | " + this.rotors[2].position);
-        this.log('========= Reflector ==========');
+        this.log("========= Reflector ==========");
         this.log("Type | " + reflectorType);
     }
     Machine.prototype.encryptMessage = function (text) {
         var _this = this;
         var encryptedText = text
-            .split('')
-            .filter(function (l) { return l !== ' '; })
+            .split("")
+            .filter(function (l) { return l !== " "; })
             .map(function (letter) { return _this.encryptLetter(letter); })
-            .join('');
+            .join("");
         var temp1 = encryptedText.match(/.{0,5}/g) || [];
-        var temp2 = temp1.map(function (l) { return l.trim(); }).join(' ').match(/.{0,23}/g) || [];
-        return temp2.map(function (l) { return l.trim(); }).join('\n');
+        var temp2 = temp1
+            .map(function (l) { return l.trim(); })
+            .join(" ")
+            .match(/.{0,23}/g) || [];
+        return temp2.map(function (l) { return l.trim(); }).join("\n");
     };
     Machine.prototype.encryptLetter = function (inpLetter) {
         var matchLetter = inpLetter
@@ -68,13 +71,13 @@ var Machine = /** @class */ (function () {
                 this.rotors[2].step();
             }
         }
-        this.log('Machine encoding');
-        this.log('letter: ' + letter);
+        this.log("Machine encoding");
+        this.log("letter: " + letter);
         this.log("Rotors Position: " + this.rotors[2].position + this.rotors[1].position + this.rotors[0].position);
         var plugboardDirect = undefined;
         if (this.plugboard) {
             plugboardDirect = this.plugboard.encode(letter);
-            this.log('plugboardDirect: ' + letter + ' -> ' + plugboardDirect);
+            this.log("plugboardDirect: " + letter + " -> " + plugboardDirect);
         }
         var rotorsDirect = plugboardDirect
             ? this.encodeWithRotors(plugboardDirect)
@@ -84,13 +87,13 @@ var Machine = /** @class */ (function () {
         var rotorsInverse = this.encodeInverseWithRotors(reflectorInverse);
         if (this.plugboard) {
             var plugboardInverse = this.plugboard.encode(rotorsInverse);
-            this.log('plugboardInverse: ' + rotorsInverse + ' -> ' + plugboardInverse);
+            this.log("plugboardInverse: " + rotorsInverse + " -> " + plugboardInverse);
             return plugboardInverse;
         }
         return rotorsInverse;
     };
     Machine.prototype.encodeWithRotors = function (letter) {
-        var output = '';
+        var output = "";
         for (var i = 0; i < this.rotors.length; i++) {
             output = this.rotors[i].encrypt(letter);
             this.log("rotor " + this.rotors[i].type + " direct: " + letter + " -> " + output);
@@ -98,9 +101,8 @@ var Machine = /** @class */ (function () {
         }
         return output;
     };
-    ;
     Machine.prototype.encodeInverseWithRotors = function (letter) {
-        var output = '';
+        var output = "";
         for (var i = this.rotors.length - 1; i >= 0; i--) {
             output = this.rotors[i].encrypt(letter, true);
             this.log("rotor " + this.rotors[i].type + " inverse: " + letter + " -> " + output);

@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Reflector = void 0;
 var utils_1 = require("../utils");
 var Reflector = /** @class */ (function () {
-    function Reflector(p) {
-        this.type = p.type;
+    function Reflector(type) {
+        this.type = type;
         this.reflectionTable = {};
         this.setReflectionTable();
     }
@@ -14,27 +14,25 @@ var Reflector = /** @class */ (function () {
             this.reflectionTable[utils_1.ALPHABET[i]] = reflectionWires[i];
         }
     };
-    ;
     Reflector.prototype.encrypt = function (letter) {
         return this.reflectionTable[letter];
     };
-    ;
     Reflector.prototype.getAlphabetByReflectorId = function () {
         switch (this.type) {
-            case 'A':
-                return 'EJMZALYXVBWFCRQUONTSPIKHGD';
-            case 'B':
-                return 'YRUHQSLDPXNGOKMIEBFZCWVJAT';
-            case 'C':
-                return 'FVPJIAOYEDRZXWGCTKUQSBNMHL';
-            case 'B Thin':
-                return 'ENKQAUYWJICOPBLMDXZVFTHRGS';
-            case 'C Thin':
-                return 'RDOBJNTKVEHMLFCWZAXGYIPSUQ';
-            case 'Beta':
-                return 'LEYJVCNIXWPBQMDRTAKZGFUHOS';
-            case 'Gamma':
-                return 'FSOKANUERHMBTIYCWLQPZXVGJD';
+            case "A":
+                return "EJMZALYXVBWFCRQUONTSPIKHGD";
+            case "B":
+                return "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+            case "C":
+                return "FVPJIAOYEDRZXWGCTKUQSBNMHL";
+            case "B Thin":
+                return "ENKQAUYWJICOPBLMDXZVFTHRGS";
+            case "C Thin":
+                return "RDOBJNTKVEHMLFCWZAXGYIPSUQ";
+            case "Beta":
+                return "LEYJVCNIXWPBQMDRTAKZGFUHOS";
+            case "Gamma":
+                return "FSOKANUERHMBTIYCWLQPZXVGJD";
         }
     };
     return Reflector;
