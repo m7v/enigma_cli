@@ -6,7 +6,8 @@
     "execute": "node ./build/index.js",
     "execute-ts": "ts-node ./index.ts",
     "test": "ts-node ./test.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
