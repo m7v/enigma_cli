@@ -86,6 +86,11 @@ $ npm run build
 $ npm run execute
 ```
 
+For test (in progress):
+```sh
+$ npm test
+```
+
 License
 ----
 
