@@ -12,17 +12,16 @@ For more information and enigma works please [read wikipedia](https://www.wikiwa
 ### Information
 
 The Wehrmacht used the following abbreviations:
-KLAM = Parenthesis
-ZZ = Comma
-X = Full stop (end of sentence)
-YY = Point or dot
-X\*\*\*\*X = Inverted commas
-Question mark (Fragezeichen in German) was usually abbreviated to FRAGE, FRAGEZ or FRAQ.
-Foreign names, places, etc. are delimited twice by "X" as in XPARISXPARISX or XFEUERSTEINX
-The letters CH were written as Q. ACHT became AQT, RICHTUNG became RIQTUNG
-Numbers were written out as NULL EINZ ZWO DREI VIER FUNF SEQS SIEBEN AQT NEUN
-It was prohibited to encipher the word "NULL" several times in succession, so they used CENTA (00), MILLE
-(000) and MYRIA (0000). Some examples: 200 = ZWO CENTA, 00780 = CENTA SIEBEN AQT
+* KLAM = Parenthesis
+* ZZ = Comma
+* X = Full stop (end of sentence)
+* YY = Point or dot
+* X\*\*\*\*X = Inverted commas
+* Question mark (Fragezeichen in German) was usually abbreviated to FRAGE, FRAGEZ or FRAQ.
+* Foreign names, places, etc. are delimited twice by "X" as in XPARISXPARISX or XFEUERSTEINX
+* The letters CH were written as Q. ACHT became AQT, RICHTUNG became RIQTUNG
+* Numbers were written out as NULL EINZ ZWO DREI VIER FUNF SEQS SIEBEN AQT NEUN.
+  It was prohibited to encipher the word "NULL" several times in succession, so they used CENTA (00), MILLE (000) and MYRIA (0000). Some examples: 200 = ZWO CENTA, 00780 = CENTA SIEBEN AQT NULL
 
 #### Authentic Wartime Message from the Russian Front
 
