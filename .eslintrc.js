@@ -78,7 +78,7 @@ module.exports = {
     'no-console': 'error',
     'no-bitwise': 'error',
     'no-plusplus': 'error',
-    'react/jsx-no-literals': [2, { 'allowedStrings': ['-', '+'] }],
+    'react/jsx-no-literals': [2, { allowedStrings: ['-', '+'] }],
     'max-len': [
       'error',
       {
@@ -117,15 +117,18 @@ module.exports = {
      * Вместо localStorage используй core/lib/storage — localStorage ломается в некоторых браузерах
      */
     'no-restricted-globals': ['error', 'event', 'name', 'localStorage'],
-     /**
+    /**
      * Не импортим весь lodash
      */
-    'no-restricted-imports': ['error', {
-      paths: [
-        { name: 'lodash', message: 'Уволен! Мы не используем jQuery' },
-        { name: 'lodash-es', message: 'Уволен! Мы не используем jQuery' }
-      ],
-      patterns: ['lodash/*']
-    }]
-  }
-}
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          { name: 'lodash', message: 'Уволен! Мы не используем jQuery' },
+          { name: 'lodash-es', message: 'Уволен! Мы не используем jQuery' },
+        ],
+        patterns: ['lodash/*'],
+      },
+    ],
+  },
+};

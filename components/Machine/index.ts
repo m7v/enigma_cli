@@ -60,9 +60,7 @@ export class Machine {
   }
 
   encryptLetter(inpLetter: string): string {
-    const matchLetter = inpLetter
-      .toUpperCase()
-      .match(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/);
+    const matchLetter = inpLetter.toUpperCase().match(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/);
     if (!matchLetter) {
       return inpLetter;
     }
@@ -70,10 +68,7 @@ export class Machine {
     // Double stepping anomaly
     // Rotors turns over the rotor on their right as well. This is not noticed
     // in rotor 0 because it always steps anyway.
-    if (
-      this.rotors[1].turnoverCountdown == 1 &&
-      this.rotors[2].turnoverCountdown == 1
-    ) {
+    if (this.rotors[1].turnoverCountdown == 1 && this.rotors[2].turnoverCountdown == 1) {
       this.rotors[1].step();
     }
 
@@ -89,7 +84,7 @@ export class Machine {
     this.log('Machine encoding');
     this.log('letter: ' + letter);
     this.log(
-      `Rotors Position: ${this.rotors[2].position}${this.rotors[1].position}${this.rotors[0].position}`
+      `Rotors Position: ${this.rotors[2].position}${this.rotors[1].position}${this.rotors[0].position}`,
     );
 
     let plugboardDirect = undefined;
@@ -103,17 +98,13 @@ export class Machine {
       : this.encodeWithRotors(letter);
 
     const reflectorInverse = this.reflector.encrypt(rotorsDirect);
-    this.log(
-      `reflectorInverse ${this.reflector.type}: ${rotorsDirect} -> ${reflectorInverse}`
-    );
+    this.log(`reflectorInverse ${this.reflector.type}: ${rotorsDirect} -> ${reflectorInverse}`);
 
     const rotorsInverse = this.encodeInverseWithRotors(reflectorInverse);
 
     if (this.plugboard) {
       const plugboardInverse = this.plugboard.encode(rotorsInverse);
-      this.log(
-        'plugboardInverse: ' + rotorsInverse + ' -> ' + plugboardInverse
-      );
+      this.log('plugboardInverse: ' + rotorsInverse + ' -> ' + plugboardInverse);
       return plugboardInverse;
     }
 
